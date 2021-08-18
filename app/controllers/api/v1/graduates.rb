@@ -18,6 +18,16 @@ module API
         get ":id", root: "graduate" do
           Graduate.where(id: permitted_params[:id]).first!
         end
+
+        desc 'Create a graduate'
+        params do
+          requires :first_name, type: String, desc: 'first name'
+        end
+        post do
+          Graduate.create!({
+            first_name: params[:first_name]
+          })
+        end
       end
     end
   end
