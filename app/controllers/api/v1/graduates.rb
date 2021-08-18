@@ -22,11 +22,34 @@ module API
         desc 'Create a graduate'
         params do
           requires :first_name, type: String, desc: 'first name'
+          requires :last_name, type: String, desc: 'last name'
         end
         post do
           Graduate.create!({
+            last_name: params[:last_name],
             first_name: params[:first_name]
           })
+        end
+
+        desc 'Update a graduate'
+        params do
+          requires :id, type: String, desc: 'Status ID.'
+          requires :first_name, type: String, desc: 'first name'
+          requires :last_name, type: String, desc: 'last name'
+        end
+        put ':id' do
+          Graduate.find(params[:id]).update({
+            last_name: params[:last_name],
+            first_name: params[:first_name]
+          })
+        end
+
+        desc 'Delete a graduate'
+        params do
+          requires :id, type: String, desc: 'Status ID.'
+        end
+        delete ':id' do
+          Graduate.find(params[:id]).destroy
         end
       end
     end
